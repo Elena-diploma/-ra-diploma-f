@@ -24,7 +24,7 @@ const url = process.env.REACT_APP_API_URL_BUILD;
 
 export const fetchGetTopSales = () => (dispatch) => {
   dispatch(fetchTopSalesRequest());
-  return fetch(`${url}/top-sales`)
+  return fetch(`${url}/top-sales`, { mode: 'no-cors'})
     .then((response) => {
       if (response.status < 200 || response.status >= 300) {
         throw new Error('Произошла ошибка.');
@@ -41,7 +41,7 @@ export const fetchGetTopSales = () => (dispatch) => {
 
 export const fetchGetCatalogCategories = () => (dispatch) => {
   dispatch(fetchCatalogRequest());
-  return fetch(`${url}/categories`)
+  return fetch(`${url}/categories`, { mode: 'no-cors'})
     .then((response) => {
       if (response.status < 200 || response.status >= 300) {
         throw new Error('Произошла ошибка.');
@@ -66,7 +66,7 @@ export const fetchGetCatalogContent = (categoryId, q, offset) => (dispatch) => {
   });
   const fetchUrl =
     ((categoryId || q || offset) && `${apiUrl}?${querry}`) || apiUrl;
-  return fetch(fetchUrl)
+  return fetch(fetchUrl, { mode: 'no-cors'})
     .then((response) => {
       if (response.status < 200 || response.status >= 300) {
         throw new Error('Произошла ошибка.');
@@ -85,7 +85,7 @@ export const fetchGetProduct = (id) => (dispatch) => {
   dispatch(fetchGetProductRequest());
   const apiUrl = `${url}/items`;
   const fetchUrl = `${apiUrl}/${id}`;
-  return fetch(fetchUrl)
+  return fetch(fetchUrl, { mode: 'no-cors'})
     .then((response) => {
       if (response.status < 200 || response.status >= 300) {
         throw new Error('Произошла ошибка.');
@@ -107,6 +107,7 @@ export const fetchPostOrder = (setCart, setOwner) => (dispatch, getState) => {
   dispatch(fetchPostCartRequest());
   return fetch(`${url}/order`, {
     method: 'POST',
+    mode: 'no-cors',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
